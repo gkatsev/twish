@@ -17,7 +17,7 @@ local.defineCommand('tweet', function(tweet){
         console.log(util.inspect(data))
     })
 })
-
+local.commands['.tweet'].help = 'Tweet as currently signed in user'
 
 var twish = new twitter(keys)
 //twish.get('/statuses/show/183682338646011904.json', function(data){
