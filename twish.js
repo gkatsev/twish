@@ -9,6 +9,9 @@ var util = require('util')
 var twish = new twitter(keys)
 
 local.context.repl = local
+local.context.colors = colors
+local.context.twish = twish
+
 local.defineCommand('tweet', function(tweet){
   twish
     .verifyCredentials(function(data) {
