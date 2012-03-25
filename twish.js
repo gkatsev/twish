@@ -6,6 +6,8 @@ var util = require('util')
   , local = repl.start()
   , first = true
 
+var twish = new twitter(keys)
+
 local.context.repl = local
 local.defineCommand('tweet', function(tweet){
   twish
@@ -19,11 +21,6 @@ local.defineCommand('tweet', function(tweet){
 })
 local.commands['.tweet'].help = 'Tweet as currently signed in user'
 
-var twish = new twitter(keys)
-//twish.get('/statuses/show/183682338646011904.json', function(data){
-  //console.log(data)
-//})
-//twish.stream('statuses/sample', function(stream){
 twish.stream('user', {track:'gkatsev', delimited:20}, function(stream){
   stream.on('data', function(data){
     if(first){
