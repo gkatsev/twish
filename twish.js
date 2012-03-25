@@ -53,7 +53,7 @@ function writeData(data){
   setTimeout(function(){
     console.log(
       colors.yellow(data.created_at)
-    , colors.green(data.user.screen_name)
+    , colors.green(data.user && data.user.screen_name)
     , colors.white(data.text)
     )
   }, 50)
