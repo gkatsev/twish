@@ -8,7 +8,7 @@ var util = require('util')
 
 local.context.repl = local
 local.defineCommand('tweet', function(tweet){
-  twit
+  twish
     .verifyCredentials(function(data) {
       console.log(util.inspect(data))
     })
