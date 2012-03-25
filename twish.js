@@ -1,6 +1,6 @@
 var util = require('util')
   , twitter = require('twitter')
-  , Stream = require('stream')
+  , colors = require('colors')
   , repl = require('repl')
   , keys = require('./keys')
   , local = repl.start()
@@ -28,7 +28,11 @@ twish.stream('user', {track:'gkatsev', delimited:20}, function(stream){
       return
     }
     setTimeout(function(){
-      process.stdout.write(JSON.stringify(data, null, '  '))
+      var obj = {}
+      obj.user = data.user.screen_name
+      obj.text = data.text
+      obj.data = data.created_at
+      process.stdout.write(JSON.stringify(obj, null, '  '))
     }, 500)
   })
 })
