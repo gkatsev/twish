@@ -4,6 +4,7 @@ var util = require('util')
   , repl = require('repl')
   , keys = require('./keys')
   , local = repl.start()
+  , first = true
 
 local.context.repl = local
 local.defineCommand('tweet', function(tweet){
@@ -11,7 +12,7 @@ local.defineCommand('tweet', function(tweet){
     .verifyCredentials(function(data) {
       console.log(util.inspect(data))
     })
-    .updateStatus('Test tweet from node-twitter/' + twitter.VERSION,
+    .updateStatus(tweet,
       function(data) {
         console.log(util.inspect(data))
     })
@@ -25,9 +26,13 @@ var twish = new twitter(keys)
 //twish.stream('statuses/sample', function(stream){
 twish.stream('user', {track:'gkatsev', delimited:20}, function(stream){
   stream.on('data', function(data){
+    if(first){
+      first = false
+      return
+    }
     setTimeout(function(){
       process.stdout.write(JSON.stringify(data, null, '  '))
-    }, 1000)
+    }, 500)
   })
 })
 
