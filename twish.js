@@ -24,20 +24,38 @@ local.defineCommand('tweet', function(tweet){
 })
 local.commands['.tweet'].help = 'Tweet as currently signed in user'
 
+local.defineCommand('reload', function(){
+  twish.get('/statuses/home_timeline.json', function(data){
+    data.reverse().forEach(function(data){writeData(data)})
+  })
+})
+local.commands['.reload'].help = 'Reload the home timeline'
+
+local.defineCommand('replies', function(){
+  twish.get('/statuses/mentions.json', function(data){
+    data.reverse().forEach(function(data){writeData(data)})
+  })
+})
+local.commands['.replies'].help = "Get latest replies"
+
+//twish.stream('statuses/sample', function(stream){
 twish.stream('user', {track:'gkatsev', delimited:20}, function(stream){
   stream.on('data', function(data){
     if(first){
       first = false
       return
     }
-    setTimeout(function(){
-      var obj = {}
-      obj.user = data.user.screen_name
-      obj.text = data.text
-      obj.data = data.created_at
-      process.stdout.write(JSON.stringify(obj, null, '  '))
-    }, 500)
+    writeData(data)
   })
 })
 
+function writeData(data){
+  setTimeout(function(){
+    console.log(
+      colors.yellow(data.created_at)
+    , colors.green(data.user.screen_name)
+    , colors.white(data.text)
+    )
+  }, 50)
+}
 module.exports = twish
