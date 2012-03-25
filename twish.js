@@ -2,6 +2,7 @@ var util = require('util')
   , twitter = require('twitter')
   , Stream = require('stream')
   , repl = require('repl')
+  , keys = require('./keys')
   , local = repl.start()
 
 local.context.repl = local
@@ -16,6 +17,8 @@ local.defineCommand('tweet', function(tweet){
     })
 })
 
+
+var twish = new twitter(keys)
 //twish.get('/statuses/show/183682338646011904.json', function(data){
   //console.log(data)
 //})
