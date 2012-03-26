@@ -56,5 +56,6 @@ function writeData(data){
   , colors.green(data.user && data.user.screen_name)
   , colors.white(data.text)
   )
+  local.displayPrompt()
 }
 module.exports = twish
