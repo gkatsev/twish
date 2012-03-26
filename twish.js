@@ -71,10 +71,13 @@ function writeData(data, toCache){
   date.unshift(date.pop())
   dates = date.join(' ')
 
-  console.log(
-    colors.yellow(dates)
-  , colors.green(data.user && data.user.screen_name)
-  , colors.white(data.text)
-  )
+  var s = colors.yellow(dates) + ' ' +
+          colors.green(data.user && data.user.screen_name) + ' ' + 
+          colors.white(data.text)
+          
+  if(data.user && data.user.screen_name == 'gkatsev'){
+    s = colors.bold(s)
+  }
+  console.log(s)
 }
 module.exports = twish
