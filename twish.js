@@ -46,16 +46,15 @@ twish.stream('user', {track:'gkatsev', delimited:20}, function(stream){
       return
     }
     writeData(data)
+
   })
 })
 
 function writeData(data){
-  setTimeout(function(){
-    console.log(
-      colors.yellow(data.created_at)
-    , colors.green(data.user && data.user.screen_name)
-    , colors.white(data.text)
-    )
-  }, 50)
+  console.log(
+    colors.yellow(data.created_at)
+  , colors.green(data.user && data.user.screen_name)
+  , colors.white(data.text)
+  )
 }
 module.exports = twish
