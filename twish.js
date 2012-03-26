@@ -5,12 +5,14 @@ var util = require('util')
   , keys = require('./keys')
   , local = repl.start()
   , first = true
+  , cache = []
 
 var twish = new twitter(keys)
 
 local.context.repl = local
 local.context.colors = colors
 local.context.twish = twish
+local.context.cache = cache
 
 local.defineCommand('tweet', function(tweet){
   twish
@@ -56,6 +58,9 @@ twish.stream('user', {track:'gkatsev', delimited:20}, function(stream){
 })
 
 function writeData(data){
+  cache.push(data)
+  if(cache.length >= 50) cache.unshift()
+
   var date = new Date(data.created_at).toString().split(' ')
     , dates
 
