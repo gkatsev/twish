@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var util = require('util')
   , twitter = require('twitter')
   , colors = require('colors')
