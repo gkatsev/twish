@@ -56,8 +56,16 @@ twish.stream('user', {track:'gkatsev', delimited:20}, function(stream){
 })
 
 function writeData(data){
+  var date = new Date(data.created_at).toString().split(' ')
+    , dates
+
+  date.splice(5,2)
+  date.splice(3,1)
+  date.unshift(date.pop())
+  dates = date.join(' ')
+
   console.log(
-    colors.yellow(data.created_at)
+    colors.yellow(dates)
   , colors.green(data.user && data.user.screen_name)
   , colors.white(data.text)
   )
