@@ -13,6 +13,7 @@ local.context.repl = local
 local.context.colors = colors
 local.context.twish = twish
 local.context.cache = cache
+local.context.writeData = writeData
 
 local.defineCommand('tweet', function(tweet){
   twish
@@ -57,8 +58,9 @@ twish.stream('user', {track:'gkatsev', delimited:20}, function(stream){
   })
 })
 
-function writeData(data){
-  cache.push(data)
+function writeData(data, toCache){
+  toCache = toCache || true
+  if(toCache) cache.push(data)
   if(cache.length >= 50) cache.unshift()
 
   var date = new Date(data.created_at).toString().split(' ')
